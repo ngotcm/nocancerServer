@@ -1,0 +1,23 @@
+{
+  "name": "nocancerServer",
+  "version": "1.0.0",
+  "description": "server of noca.ngotcm.org crawled from www.nocancer.com.cn",
+  "dependencies": {
+    "connect": "^2.26.1",
+    "crawlit": "^0.1.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngotcm/nocancerServer.git"
+  },
+  "author": "Inaction.me@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngotcm/nocancerServer/issues"
+  },
+  "homepage": "https://github.com/ngotcm/nocancerServer"
+}
