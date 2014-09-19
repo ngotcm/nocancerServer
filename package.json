@@ -1,6 +1,6 @@
 {
   "name": "nocancerServer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "server of noca.ngotcm.org crawled from www.nocancer.com.cn",
   "dependencies": {
     "connect": "~2.x"
