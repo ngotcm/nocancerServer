@@ -72,13 +72,15 @@ var getAttFilePath = function (uriObj) {
 };
 
 var webServer = connect()
-    .use(connect.logger(':method :url - :res[content-type]', { buffer: 5000 }))
-    .use(function (req, res, next) {
-      if (req.url === '/') {
-        req.url = config.defaultPage;
-      }
-      next();
-    });
+    .use(connect.logger(':method :url - :res[content-type]', { buffer: 5000 }));
+
+//default page.
+webServer.use(function (req, res, next) {
+  if (req.url === '/') {
+    req.url = config.defaultPage;
+  }
+  next();
+});
 
 //attachments parse
 webServer.use(function (req, res, next) {
@@ -122,7 +124,7 @@ webServer.use(function (req, res, next) {
   if (/^\/forum.php\?mod=forumdisplay/.test(req.url)) {
     res.setHeader('Content-Type', 'text/html');
     var qsObj = qs.parse(req.url);
-    var url = 'forum-' + qsObj['fid'] + '-' + qsObj['page'] + '.html';
+    var url = 'forum-' + qsObj['fid'] + '-' + (qsObj['page'] || 1) + '.html';
     req.filePath = path.join(archivePath, url);
   }
   next();
@@ -181,7 +183,11 @@ webServer.use(
       if (request.filePath) {
         fs.stat(request.filePath, function (err, stats) {
           if (err) {
-            next(err);
+            console.error('url 404:', request.url);
+            response.statusCode = 404;
+            response.setHeader('Content-Type', 'text/plain');
+            response.end('URI : "' + request.url + '" NOT crawled from ' + config.host);
+            //next(err);
             return;
           }
           //maybe (Inaction) when use gzip the file size is not sutable.
