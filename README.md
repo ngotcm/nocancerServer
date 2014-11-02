@@ -21,6 +21,10 @@ npm install
 6. 在瀏覽器訪問 http://localhost:1231 即可瀏覽鏡像網站； 
 
 ##Change Log
+v1.2
+* Fix default page error, set default page param as 1;
+* Add other php request handler.
+
 v1.1 
 * Remove crowlit lib.
 * Update mirror file to nocancer-20140918.tz2
