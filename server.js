@@ -176,6 +176,18 @@ webServer.use(function (req, res, next) {
   next();
 });
 
+//other php request
+webServer.use(function (request, response, next) {
+  if (!request.filePath && /\.php/.test(request.url)) {
+    console.error('url 404:', request.url);
+    response.statusCode = 404;
+    response.setHeader('Content-Type', 'text/plain');
+    response.end('URI : "' + request.url + '" NOT crawled from ' + config.host);
+  }else{
+    next();
+  }
+});
+
 //For crawled static files
 webServer.use(
     //Some codes from JacksonTian's ping module.(https://github.com/JacksonTian/ping)
