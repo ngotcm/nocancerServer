@@ -10,7 +10,7 @@ var config = {
   port: '1231', //the date of www.nocancer.com.cn  shutting down.
   working_root_path: './',
   defaultPage : '/forum.php',
-  host:  'www.nocancer.com.cn',
+  host:  'www.nocancer.com.cn'
 };
 
 module.exports = config;
