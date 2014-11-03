@@ -279,6 +279,6 @@ webServer.use(function (req, res) {
 
 //start server
 webServer.listen(config.port);
-console.log("Crawler site server started at port:", config.port);
-console.log("Waiting for connection ...");
+console.log("No-cancer server v1.3 start listening port:", config.port);
+console.log("Waiting for connections ...");
 
