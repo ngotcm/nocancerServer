@@ -5,6 +5,10 @@
  * Usage: node bin/server.js
  */
 
+var logger = require('./logger.js').getLogger('info');
+var console = logger;
+console.log = logger.info;
+
 var config = require('./config/config.js');
 
 var connect = require('connect');
@@ -53,11 +57,11 @@ var decode = function (str) {
 
 var getAttFilePath = function (uriObj) {
   var realIdArray = decode(uriObj.query.aid).split('|');
-  console.log('realId.array: ', realIdArray);
-  console.log('16num to 10', parseInt(realIdArray[1], 16));
+  console.debug('realId.array: ', realIdArray);
+  console.debug('16num to 10', parseInt(realIdArray[1], 16));
 
   var filename = Object.keys(uriObj.query).reduce(function (pre, current, index) {
-    console.log(index, 'current:', current, 'pre:', pre);
+    console.debug(index, 'current:', current, 'pre:', pre);
     //Add other param to filenameArray
     if (!/(mod|aid)/i.test(current)) {
       pre.push(current);
@@ -65,14 +69,14 @@ var getAttFilePath = function (uriObj) {
     return pre;
   }, [realIdArray.shift()]);
 
-  console.log('realId.array: ', realIdArray);
-  console.log('filename:', filename);
+  console.debug('realId.array: ', realIdArray);
+  console.debug('filename:', filename);
 
   return path.join('attachment', realIdArray.pop(), filename.join('-'));
 };
 
 var webServer = connect()
-    .use(connect.logger(':method :url - :res[content-type]', { buffer: 5000 }));
+    .use(connect.logger('[:date] :req[X-Real-IP] :method :status :response-time :url - :res[content-type] ":user-agent"'));
 
 //default page.
 webServer.use(function (req, res, next) {
@@ -147,7 +151,7 @@ webServer.use(function (req, res, next) {//ucenter avatar images
   if (/^\/ucenter/.test(req.url)) {
     res.setHeader("Content-Type", "image/jpg");
     req.filePath = path.join(archivePath, req.url);
-    console.log('Read file:', req.filePath);
+    console.debug('Read file:', req.filePath);
   }
   next();
 });
@@ -275,6 +279,6 @@ webServer.use(function (req, res) {
 
 //start server
 webServer.listen(config.port);
-console.log("Crawler site server started at port:", config.port);
-console.log("Waiting for connection ...");
+console.log("No-cancer server v1.3 start listening port:", config.port);
+console.log("Waiting for connections ...");
 
