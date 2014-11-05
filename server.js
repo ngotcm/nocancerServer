@@ -159,11 +159,17 @@ webServer.use(function (req, res, next) {//ucenter avatar images
 //other crawled url parse
 webServer.use(function (req, res, next) {
   if (/\.(php)$/.test(req.url) ||
-      /^\/home\.php\?mod=space&uid=\d{1,6}$/.test(req.url) ||
       /forum\.php\?gid=/.test(req.url) ||
       /group\.php?gid=/.test(req.url) ||
       /^\/archiver\/\?/.test(req.url)) {
     res.setHeader("Content-Type", 'text/html; charset="utf-8"');
+    req.filePath = path.join(archivePath, req.url);
+  }
+
+  if(/^\/home\.php\?mod=space&uid=\d{1,6}/.test(req.url)){
+    var str = req.url.split('&');
+    str.length = 2;
+    req.url = str.join('&');
     req.filePath = path.join(archivePath, req.url);
   }
 
