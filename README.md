@@ -5,7 +5,7 @@ nocancerServer
 
 ##Install
 
-1. 取得鏡像文件，請發郵件至 inaction.me#gmail.com 索取； 
+1. 已经没有镜像文件见了，不要再发送请求。~~取得鏡像文件，請發郵件至 inaction.me#gmail.com 索取；~~
 2. 安裝 nodejs 環境， 參考 http://nodejs.org
 3. 獲取代碼:
 
